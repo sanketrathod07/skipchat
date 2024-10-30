@@ -1,17 +1,22 @@
 version: "3.8"
 services:
   front:
-    build: ./public
+    build:
+      context: ./public
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     environment:
       - REACT_APP_LOCALHOST_KEY=${chat-app-current-user}
       - REACT_APP_SERVER_URL=http://api:5000
+
   api:
-    build: ./server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
     ports:
       - 5000:5000
     environment:
-      - PORT=${5000}
+      - PORT=5000  # Directly set the port without the $ notation
       - MONGO_URL=${mongodb+srv://sanketrathod7420:uK0HYiYumL1AN6HI@cluster0.1jfl7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0}
       - REACT_APP_CLIENT_API=http://front:3000
