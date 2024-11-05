@@ -130,7 +130,7 @@ const Container = styled.div`
   }
   
   .container {
-    height: 100vh;
+    height: 100%;
     width: 100vw;
     background-color: #00000076;
     display: grid;
