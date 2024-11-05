@@ -65,7 +65,6 @@ module.exports.setAvatar = async (req, res, next) => {
       },
       { new: true }
     );
-    console.log("User data from local storage:", userData);
 
     return res.json({
       isSet: userData.isAvatarImageSet,

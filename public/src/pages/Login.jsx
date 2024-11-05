@@ -60,7 +60,6 @@ export default function Login() {
             process.env.REACT_APP_LOCALHOST_KEY,
             JSON.stringify(data.user)
           );
-
           navigate("/");
         }
       } catch (error) {

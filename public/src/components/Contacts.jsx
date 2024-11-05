@@ -9,7 +9,6 @@ export default function Contacts({ contacts, changeChat }) {
   useEffect(() => {
     const fetchData = async () => {
       const data = JSON.parse(localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY));
-      console.log("data", data)
       if (data) {
         setCurrentUserName(data.username);
         setCurrentUserImage(data.avatarImage);
@@ -26,7 +25,7 @@ export default function Contacts({ contacts, changeChat }) {
   };
   return (
     <>
-      {(currentUserImage && currentUserName) && ( // Check for both image and name
+      {(currentUserImage && currentUserName) && (
         <Container>
           <div className="brand">
             <img src={Logo} alt="logo" />

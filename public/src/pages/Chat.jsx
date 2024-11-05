@@ -83,6 +83,10 @@ const Container = styled.div`
     background: url(${backgroundImage});
     background-color: #00000076;
 
+    .chat-container{
+      overflow: hidden;
+    }
+
     @media only screen and (max-width: 850px) {
       height: 100vh;
       width: 100vw;

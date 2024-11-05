@@ -7,8 +7,10 @@ const app = express();
 const socket = require("socket.io");
 require("dotenv").config();
 
-app.use(cors());
+app.use(cors("*"));
 app.use(express.json());
+
+mongoose.set('strictQuery', false);
 
 mongoose
   .connect(process.env.MONGO_URL, {
