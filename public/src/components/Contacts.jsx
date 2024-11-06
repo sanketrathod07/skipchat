@@ -144,6 +144,10 @@ const Container = styled.div`
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 1rem;
+
+    @media screen and (max-width: 700px){
+        padding: 1.2rem 1rem;
+    }
   }
 
   .brand img {
