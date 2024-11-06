@@ -74,8 +74,9 @@ const Container = styled.div`
     align-items: center;
     gap: 1rem;
     justify-content: center;
+    padding: 1rem;
     img {
-      height: 2rem;
+      /* height: 2rem; */
     }
     h3 {
       color: white;
@@ -144,10 +145,7 @@ const Container = styled.div`
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 1rem;
-
-    @media screen and (max-width: 700px){
-        padding: 1.2rem 1rem;
-    }
+    border-bottom: 2px solid #6a6a6a;
   }
 
   .brand img {
@@ -167,6 +165,7 @@ const Container = styled.div`
     max-height: 100%;
     overflow-y: auto;
     margin-bottom: 1rem;
+    padding-right: 0.5rem;
   }
 
   .contact {
