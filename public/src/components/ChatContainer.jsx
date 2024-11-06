@@ -5,9 +5,9 @@ import Logout from "./Logout";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
+import { FaArrowLeft } from "react-icons/fa";
 
-
-export default function ChatContainer({ currentChat, socket }) {
+export default function ChatContainer({ currentChat, socket, setCurrentChat }) {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const scrollRef = useRef();
@@ -80,6 +80,10 @@ export default function ChatContainer({ currentChat, socket }) {
     }
   }, [messages, loading]);
 
+  const handleBackClick = () => {
+    setCurrentChat(undefined);
+  };
+
   const username = currentChat.username || "guest";
 
 
@@ -88,10 +92,13 @@ export default function ChatContainer({ currentChat, socket }) {
       <Container>
         <div className="chat-header">
           <div className="user-details">
+            <div onClick={handleBackClick} className="back-arrow">
+              <FaArrowLeft />
+            </div>
             <div className="avatar">
               <img
                 src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
-                alt=""
+                alt="Avtar Image"
               />
             </div>
             <div className="username">
@@ -103,7 +110,7 @@ export default function ChatContainer({ currentChat, socket }) {
         <div className="chat-messages">
           {loading ? (
             <Loader>
-              <div className="spinner"></div>
+              <div className="spinner"></div> {/* Loading animation */}
             </Loader>
           ) : (messages.map((message) => {
             return (
@@ -129,9 +136,9 @@ export default function ChatContainer({ currentChat, socket }) {
 const Container = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
-  gap: 0.1rem;
   height: 100%;
-  @media screen and (min-width: 720px) and (max-width: 980px){
+  gap: 0.1rem;
+  @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-rows: 10% 84% 6%;
   }
   
@@ -168,7 +175,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
+    padding: 0.16rem 2rem;
     background-color: #8c00ffc7;
     @media screen and (max-width: 700px) {
       position: fixed;
@@ -176,7 +183,15 @@ const Container = styled.div`
       left: 0;
       width: 100%;
       z-index: 10;
-      padding: 0.3rem 1rem;
+      padding: 0.4rem 1rem;
+    }
+    .back-arrow {
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
     }
     .user-details {
       display: flex;
@@ -184,7 +199,7 @@ const Container = styled.div`
       gap: 1rem;
       .avatar {
         img {
-          height: 3rem;
+          height: 2.7rem;
         }
       }
       .username {
@@ -199,7 +214,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    overflow: auto;
+    overflow-y: auto;
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
@@ -210,6 +225,7 @@ const Container = styled.div`
     }
     @media screen and (max-width: 700px) {
       padding: 1rem 0.5rem;
+      /* min-height: fit-content; */
       height: 94vh;
     }
     .message {
