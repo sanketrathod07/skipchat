@@ -88,7 +88,7 @@ const Container = styled.div`
     }
 
     @media only screen and (max-width: 850px) {
-      height: 100%;
+      height: 93%;
       width: 100vw;
     }
     @media screen and (min-width: 720px) and (max-width: 1080px) {
