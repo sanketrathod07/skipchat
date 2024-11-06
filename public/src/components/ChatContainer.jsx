@@ -226,7 +226,7 @@ const Container = styled.div`
     @media screen and (max-width: 700px) {
       padding: 1rem 0.5rem;
       /* min-height: fit-content; */
-      height: 88vh;
+      height: 90vh;
     }
     .message {
       display: flex;
