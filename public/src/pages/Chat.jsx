@@ -75,6 +75,9 @@ const Container = styled.div`
   gap: 1rem;
   align-items: center;
   background-color: #1a1a2e;
+  @media only screen and (max-width: 700px) {
+    justify-content: start;
+  }
   .container {
     height: 90vh;
     width: 95vw;
