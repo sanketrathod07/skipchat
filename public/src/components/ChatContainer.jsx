@@ -205,6 +205,7 @@ const Container = styled.div`
     }
     @media screen and (max-width: 700px) {
       padding: 1rem 0.5rem;
+      height: 94vh;
     }
     .message {
       display: flex;
