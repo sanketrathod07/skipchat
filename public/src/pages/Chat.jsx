@@ -111,7 +111,7 @@ const Container = styled.div`
       }
       .chatMobileStyleHide{
         width: 100vw;
-        height: 100vh
+        height: 97vh
       }
   }
 }
