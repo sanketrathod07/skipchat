@@ -125,7 +125,6 @@ const Container = styled.div`
   height: 100%; 
   @media screen and (max-width: 720px){
     grid-template-rows: 10% 84% 6%;
-    height: 93%; 
   }
   
   .container {
