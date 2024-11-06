@@ -91,7 +91,7 @@ const Container = styled.div`
     }
 
     @media only screen and (max-width: 850px) {
-      height: 95%;
+      height: 100%;
       width: 100vw;
     }
     @media screen and (min-width: 720px) and (max-width: 1080px) {
@@ -99,19 +99,19 @@ const Container = styled.div`
     }
 
     @media only screen and (max-width: 700px) {
-    .showSidebarContact{
-      width: 100vw;
-      height: 100vh;
-    }
-    .chatMobileStyleSHOW{
-      display: none;
-    }
-    .hideSidebarContact{
-      display: none;
-    }
-    .chatMobileStyleHide{
-      width: 100vw;
-    }
+      .showSidebarContact{
+        width: 100vw;
+        height: 100vh;
+      }
+      .chatMobileStyleSHOW{
+        display: none;
+      }
+      .hideSidebarContact{
+        display: none;
+      }
+      .chatMobileStyleHide{
+        width: 100vw;
+      }
   }
 }
 `;
