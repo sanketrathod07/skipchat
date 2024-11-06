@@ -167,7 +167,6 @@ const Container = styled.div`
     max-height: 100%;
     overflow-y: auto;
     margin-bottom: 1rem;
-    padding-right: 0.5rem;
   }
 
   .contact {
