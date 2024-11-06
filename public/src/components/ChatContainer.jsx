@@ -5,7 +5,6 @@ import Logout from "./Logout";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
-import { ToastContainer } from "react-toastify";
 
 
 export default function ChatContainer({ currentChat, socket }) {
@@ -81,7 +80,6 @@ export default function ChatContainer({ currentChat, socket }) {
 
   return (
     <>
-      <ToastContainer />
       <Container>
         <div className="chat-header">
           <div className="user-details">
