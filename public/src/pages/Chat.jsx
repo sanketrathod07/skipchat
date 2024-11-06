@@ -101,7 +101,7 @@ const Container = styled.div`
     @media only screen and (max-width: 700px) {
       .showSidebarContact{
         width: 100vw;
-        height: 100vh;
+        height: 97vh;
       }
       .chatMobileStyleSHOW{
         display: none;
@@ -111,7 +111,7 @@ const Container = styled.div`
       }
       .chatMobileStyleHide{
         width: 100vw;
-        height: 97vh
+        height: 100vh
       }
   }
 }
