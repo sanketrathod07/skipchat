@@ -54,6 +54,7 @@ const Container = styled.div`
   grid-template-columns: 5% 95%;
   background-color: #080420;
   padding: 0 2rem;
+  height: fit-content;
   @media screen and (max-width: 700px){
     padding: 0px 1rem;
     gap: 13px;
