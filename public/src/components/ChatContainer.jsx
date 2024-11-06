@@ -9,11 +9,13 @@ import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
 
 export default function ChatContainer({ currentChat, socket }) {
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
   const scrollRef = useRef();
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
   useEffect(() => {
     const fetchMessages = async () => {
+      setLoading(true);
       const data = JSON.parse(
         localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
       );
@@ -22,6 +24,7 @@ export default function ChatContainer({ currentChat, socket }) {
         to: currentChat._id,
       });
       setMessages(response.data);
+      setLoading(false);
     };
 
     fetchMessages();
@@ -72,8 +75,10 @@ export default function ChatContainer({ currentChat, socket }) {
   }, [arrivalMessage]);
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (!loading) {
+      scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, loading]);
 
   const username = currentChat.username || "guest";
 
@@ -96,7 +101,11 @@ export default function ChatContainer({ currentChat, socket }) {
           <Logout />
         </div>
         <div className="chat-messages">
-          {messages.map((message) => {
+          {loading ? (
+            <Loader>
+              <div className="spinner"></div>
+            </Loader>
+          ) : (messages.map((message) => {
             return (
               <div ref={scrollRef} key={uuidv4()}>
                 <div
@@ -109,7 +118,7 @@ export default function ChatContainer({ currentChat, socket }) {
                 </div>
               </div>
             );
-          })}
+          }))}
         </div>
         <ChatInput handleSendMsg={handleSendMsg} />
       </Container>
@@ -121,8 +130,7 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: auto 1fr auto;
   gap: 0.1rem;
-  overflow: hidden;
-  height: 100%; 
+  height: 100%;
   @media screen and (min-width: 720px) and (max-width: 980px){
     grid-template-rows: 10% 84% 6%;
   }
@@ -168,9 +176,6 @@ const Container = styled.div`
       left: 0;
       width: 100%;
       z-index: 10;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       padding: 0.3rem 1rem;
     }
     .user-details {
@@ -234,5 +239,27 @@ const Container = styled.div`
         background-color: #9900ff;
       }
     }
+  }
+`;
+
+// Styled component for loading spinner
+const Loader = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ffffff39;
+    border-top: 4px solid #4f04ff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 `;
