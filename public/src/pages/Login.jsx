@@ -79,7 +79,7 @@ export default function Login() {
           </div>
           <input
             type="text"
-            placeholder="admin"
+            placeholder="sanketrathod"
             name="username"
             onChange={handleChange}
             minLength="3" // Ensuring minimum length for username
@@ -87,7 +87,7 @@ export default function Login() {
           />
           <input
             type="password"
-            placeholder="admin123"
+            placeholder="sanketrathod"
             name="password"
             onChange={handleChange}
             required // Making it a required field
