@@ -5,16 +5,17 @@ import Logout from "./Logout";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { sendMessageRoute, recieveMessageRoute } from "../utils/APIRoutes";
-import { ToastContainer } from "react-toastify";
+import { FaArrowLeft } from "react-icons/fa";
 
-
-export default function ChatContainer({ currentChat, socket }) {
+export default function ChatContainer({ currentChat, socket, setCurrentChat }) {
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
   const scrollRef = useRef();
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
   useEffect(() => {
     const fetchMessages = async () => {
+      setLoading(true);
       const data = JSON.parse(
         localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
       );
@@ -23,6 +24,7 @@ export default function ChatContainer({ currentChat, socket }) {
         to: currentChat._id,
       });
       setMessages(response.data);
+      setLoading(false);
     };
 
     fetchMessages();
@@ -73,22 +75,30 @@ export default function ChatContainer({ currentChat, socket }) {
   }, [arrivalMessage]);
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+    if (!loading) {
+      scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, loading]);
+
+  const handleBackClick = () => {
+    setCurrentChat(undefined);
+  };
 
   const username = currentChat.username || "guest";
 
 
   return (
     <>
-      <ToastContainer />
       <Container>
         <div className="chat-header">
           <div className="user-details">
+            <div onClick={handleBackClick} className="back-arrow">
+              <FaArrowLeft />
+            </div>
             <div className="avatar">
               <img
                 src={`data:image/svg+xml;base64,${currentChat.avatarImage}`}
-                alt=""
+                alt="Avtar Image"
               />
             </div>
             <div className="username">
@@ -98,7 +108,11 @@ export default function ChatContainer({ currentChat, socket }) {
           <Logout />
         </div>
         <div className="chat-messages">
-          {messages.map((message) => {
+          {loading ? (
+            <Loader>
+              <div className="spinner"></div>
+            </Loader>
+          ) : (messages.map((message) => {
             return (
               <div ref={scrollRef} key={uuidv4()}>
                 <div
@@ -111,7 +125,7 @@ export default function ChatContainer({ currentChat, socket }) {
                 </div>
               </div>
             );
-          })}
+          }))}
         </div>
         <ChatInput handleSendMsg={handleSendMsg} />
       </Container>
@@ -121,20 +135,22 @@ export default function ChatContainer({ currentChat, socket }) {
 
 const Container = styled.div`
   display: grid;
-  grid-template-rows: 8% 86% 6%;
-  gap: 0.1rem;
-  overflow: hidden;
+  grid-template-rows: auto 1fr auto;
   height: 100%;
+  gap: 0.1rem;
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     grid-template-rows: 10% 84% 6%;
   }
   
   .container {
-    height: 100vh;
+    height: 100%;
     width: 100vw;
     background-color: #00000076;
     display: grid;
     grid-template-columns: 25% 75%;
+    @media only screen and (max-width: 700px) {
+      height: 100vh;
+    }
 
     @media screen and (min-width: 720px){
       grid-template-columns: 5% 65%;
@@ -159,11 +175,23 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
-    background-color: #8e00ff33;
+    padding: 0.16rem 2rem;
+    background-color: #8c00ffc7;
     @media screen and (max-width: 700px) {
-      padding: 0px 1rem;
-      gap: 14px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      padding: 0.4rem 1rem;
+    }
+    .back-arrow {
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
     }
     .user-details {
       display: flex;
@@ -171,7 +199,7 @@ const Container = styled.div`
       gap: 1rem;
       .avatar {
         img {
-          height: 3rem;
+          height: 2.7rem;
         }
       }
       .username {
@@ -186,7 +214,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    overflow: auto;
+    overflow-y: auto;
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
@@ -194,6 +222,11 @@ const Container = styled.div`
         width: 0.1rem;
         border-radius: 1rem;
       }
+    }
+    @media screen and (max-width: 700px) {
+      padding: 1rem 0.5rem;
+      /* min-height: fit-content; */
+      height: 90vh;
     }
     .message {
       display: flex;
@@ -222,5 +255,27 @@ const Container = styled.div`
         background-color: #9900ff;
       }
     }
+  }
+`;
+
+// Styled component for loading spinner
+const Loader = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ffffff39;
+    border-top: 4px solid #4f04ff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 `;

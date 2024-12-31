@@ -57,7 +57,7 @@ export default function Chat() {
             {currentChat === undefined ? (
               <Welcome />
             ) : (
-              <ChatContainer currentChat={currentChat} socket={socket} />
+              <ChatContainer currentChat={currentChat} socket={socket} setCurrentChat={setCurrentChat} />
             )}
           </div>
         </div>
@@ -75,6 +75,9 @@ const Container = styled.div`
   gap: 1rem;
   align-items: center;
   background-color: #1a1a2e;
+  @media only screen and (max-width: 700px) {
+    justify-content: start;
+  }
   .container {
     height: 90vh;
     width: 95vw;
@@ -88,7 +91,7 @@ const Container = styled.div`
     }
 
     @media only screen and (max-width: 850px) {
-      height: 100vh;
+      height: 100%;
       width: 100vw;
     }
     @media screen and (min-width: 720px) and (max-width: 1080px) {
@@ -96,18 +99,20 @@ const Container = styled.div`
     }
 
     @media only screen and (max-width: 700px) {
-    .showSidebarContact{
-      width: 100vw;
-    }
-    .chatMobileStyleSHOW{
-      display: none;
-    }
-    .hideSidebarContact{
-      display: none;
-    }
-    .chatMobileStyleHide{
-      width: 100vw;
-    }
+      .showSidebarContact{
+        width: 100vw;
+        height: 100vh;
+      }
+      .chatMobileStyleSHOW{
+        display: none;
+      }
+      .hideSidebarContact{
+        display: none;
+      }
+      .chatMobileStyleHide{
+        width: 100vw;
+        height: 100vh
+      }
   }
 }
 `;

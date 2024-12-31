@@ -67,15 +67,16 @@ const Container = styled.div`
   background-color: #000000;
   height: 100%;
   @media screen and (max-width: 700px){
-    grid-template-rows: 10% 78% 12%;
+    grid-template-rows: auto 1fr auto;
   }
   .brand {
     display: flex;
     align-items: center;
     gap: 1rem;
     justify-content: center;
+    padding: 1rem;
     img {
-      height: 2rem;
+      /* height: 2rem; */
     }
     h3 {
       color: white;
@@ -144,6 +145,7 @@ const Container = styled.div`
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 1rem;
+    border-bottom: 2px solid #6a6a6a;
   }
 
   .brand img {
